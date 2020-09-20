@@ -11,6 +11,7 @@ function initNavigation() {
       //   setTimeout(() => {
       //     link.classList.remove("animate-out");
       //   }, 300);
+
       link.ontransitionend = function () {
         link.classList.remove("animate-out");
       };
