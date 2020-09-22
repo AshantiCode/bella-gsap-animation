@@ -177,7 +177,7 @@ header h1 span {
   font-size: 1.3vw;
   color: #fff;
   letter-spacing: 0.3vw;
-  transform: translateX(-9vw);
+  /* transform: translateX(-9vw); */
   font-weight: 300;
   pointer-events: none;
 }
@@ -270,6 +270,7 @@ header h1 span {
   top: 17vh;
   left: 15vw;
 }
+
 .hg__left .hg__image:nth-child(2) {
   top: 30vh;
   left: 6vw;
@@ -289,7 +290,6 @@ header h1 span {
   top: 27vh;
   left: auto;
   right: 10vw;
-  z-index: 1;
 }
 .hg__right .hg__image:nth-child(3) {
   top: 56vh;
@@ -297,6 +297,7 @@ header h1 span {
   right: 19vw;
   width: 16vw;
   padding-bottom: 20vw;
+  z-index: 1;
 }
 
 /* =Reveal Gallery */
