@@ -51,9 +51,24 @@ function initHeaderTilt() {
 
 function moveImages(e) {
   const { offsetX, offsetY, target } = e;
-  const { clientWidth, clientHeight } = e.target;
+  const { clientWidth, clientHeight } = target;
 
-  console.log(offsetX, offsetY, clientWidth, clientHeight);
+  //   console.log(offsetX, offsetY, clientWidth, clientHeight);
+  const xPos = offsetX / clientWidth - 0.5; // minus 0.5 damit in der mitte 0 ist
+  const yPos = offsetY / clientHeight - 0.5;
+
+  const leftImages = gsap.utils.toArray(".hg__left .hg__image");
+
+  leftImages.forEach((image, index) => {
+    const modifier = (index) => index * 1.2;
+    gsap.to(image, {
+      duration: 1.2,
+      x: xPos * 20 * modifier(index),
+      y: yPos * 30 * modifier(index),
+      rotateX: yPos * 10,
+      rotateY: xPos * 40,
+    });
+  });
 }
 
 function init() {

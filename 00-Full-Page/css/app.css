@@ -178,7 +178,7 @@ header h1 span {
   font-size: 1.3vw;
   color: #fff;
   letter-spacing: 0.3vw;
-  /* transform: translateX(-9vw); */
+  transform: translateX(-9vw);
   font-weight: 300;
   pointer-events: none;
 }
