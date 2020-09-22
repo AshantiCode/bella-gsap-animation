@@ -41,12 +41,24 @@ function initNavigation() {
     },
     onEnter: ({ direction }) => navAnimation(direction),
     onLeaveBack: ({ direction }) => navAnimation(direction),
-    markers: true,
+    // markers: true,
   });
+}
+
+function initHeaderTilt() {
+  document.querySelector("header").addEventListener("mousemove", moveImages);
+}
+
+function moveImages(e) {
+  const { offsetX, offsetY, target } = e;
+  const { clientWidth, clientHeight } = e.target;
+
+  console.log(offsetX, offsetY, clientWidth, clientHeight);
 }
 
 function init() {
   initNavigation();
+  initHeaderTilt();
 }
 
 window.addEventListener("load", function () {
