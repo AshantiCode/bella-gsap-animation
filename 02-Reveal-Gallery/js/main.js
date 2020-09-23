@@ -30,23 +30,19 @@ function createHoverReveal(e) {
     const { imageBlock, mask, text, textCopy } = e.target;
 
     let tl = gsap.timeline({
-        defaults: {
-            duration: 0.7,
-            ease: "power4.out",
+        defaults: {duration: 0.7, ease: "power4.out",
         },
     });
 
     if (e.type === "mouseenter") {
 		tl
-		.to([mask, imageBlock], {
-            duration: 1,
-            yPercent: 0,})
+		// .to([mask, imageBlock], {duration: 1, yPercent: 0,})
 		.to(text, {y: () => -getTextCopyHeight(textCopy)/ 2}, 0 ) // moves text up half of its height
 			
     } else if (e.type === "mouseleave") {
 		tl
-		.to(mask, { yPercent: 100 })
-		.to(imageBlock, { yPercent: -101 }, 0)
+		// .to(mask, { yPercent: 100 })
+		// .to(imageBlock, { yPercent: -101 }, 0)
 		.to(text, {y: 0},0)
     }
 
