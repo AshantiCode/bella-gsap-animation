@@ -13,6 +13,10 @@ function initHoverReveal() {
 		column.textP = column.querySelector(".rg__text--copy p");
 		column.image = column.querySelector(".rg__column img")
 
+		//get the color for each column
+		const colColor = column.attributes[1].value
+		
+
         // reset their initial position (images are not visisble on
         // page load
         gsap.set([column.imageBlock, column.textMask], { yPercent: -101 });
@@ -30,8 +34,9 @@ function getTextCopyHeight(textCopy) {
 
 function createHoverReveal(e) {
     // console.log(e.target);
-
+	const section = document.querySelector(".reveal-gallery")
     const { imageBlock, mask, text, textCopy, textMask, textP, image } = e.target;
+	const sectionColor = e.target.attributes[1].value;
 
     let tl = gsap.timeline({
         defaults: {duration: 1, ease: "power4.out",
@@ -43,6 +48,7 @@ function createHoverReveal(e) {
 		.to([mask, imageBlock, textMask, textP], { yPercent: 0,})
 		.to(text, {y: () => -getTextCopyHeight(textCopy)/ 2}, 0 ) // moves text up half of its height
 		.to(image, {duration: 1.2, scale:1}, 0)
+		.to(section, {backgroundColor: sectionColor}, 0)
     } else if (e.type === "mouseleave") {
 		tl
 		.to([mask, textP], { yPercent: 100 })
@@ -53,6 +59,7 @@ function createHoverReveal(e) {
 
     return tl;
 }
+
 
 // function init() {
 //     initHoverReveal();
@@ -88,7 +95,6 @@ function removeInlineStyles(elements) {
 
 //function media quer change
 function handleWidthChange(mq) {
-	console.log(mq);
 	//width is over 768px
 	if(mq.matches) {
 		initHoverReveal()
