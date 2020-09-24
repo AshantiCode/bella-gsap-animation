@@ -1,7 +1,7 @@
 gsap.registerPlugin(ScrollTrigger);
+const columns = gsap.utils.toArray(".rg__column");
 
 function initHoverReveal() {
-    const columns = gsap.utils.toArray(".rg__column");
 
     columns.forEach((column) => {
         // get the el we want to animate
@@ -71,13 +71,38 @@ const mq = window.matchMedia("(min-width: 768px)")
 // add change listener
 mq.addEventListener("change", handleWidthChange)
 
+//run function again on reload
+handleWidthChange(mq)
+
+// remove gsap inlinestyles when resizing from web to mobile
+function removeInlineStyles(elements) {
+	//stop all tweens while hitting breakpoint
+	gsap.killTweensOf("*")
+
+	if (elements.length) {
+		elements.forEach(el => {
+			el && gsap.set(el, {clearProps: "all"})
+		})
+	}
+}
+
 //function media quer change
 function handleWidthChange(mq) {
 	console.log(mq);
-	//check if we over 768px or under 768px
+	//width is over 768px
 	if(mq.matches) {
 		initHoverReveal()
+
 	} else {
+		//width is lower than 768px
 		console.log("we are on mobile")
+
+		// remove added eventlistener
+		columns.forEach(column => {
+			column.removeEventListener("mouseenter", createHoverReveal)
+			column.removeEventListener("mouseleave", createHoverReveal)
+			const {imageBlock, mask, text, textCopy, textMask, textP, image} = column
+			removeInlineStyles([imageBlock, mask, text, textCopy, textMask, textP, image])
+		})
 	}
 }
