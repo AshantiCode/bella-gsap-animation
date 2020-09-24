@@ -1,53 +1,45 @@
 gsap.registerPlugin(ScrollTrigger);
 
 
-const links = gsap.utils.toArray(".portfolio__categories a")
+const allLinks = gsap.utils.toArray(".portfolio__categories a")
+const pageBackground = document.querySelector(".fill-background")
+const largeImage = document.querySelector(".portfolio__image--l")
+const smallImage = document.querySelector(".portfolio__image--s")
+const lInside = document.querySelector(".portfolio__image--l .image_inside")
+const sInside = document.querySelector(".portfolio__image--s .image_inside")
 
-function initLinkHover() {
+function initPortfolioHover() {
 	
-	links.forEach(link => {
-		link.addEventListener("mouseenter", hoverEffekt)
-		// link.addEventListener("mouseleave", hoverEffekt)
+	allLinks.forEach(link => {
+		link.addEventListener("mouseenter", createPortfolioHover)
+		link.addEventListener("mouseleave", createPortfolioHover)
 
 	})
 };
 
-function hoverEffekt(e) {
-	// console.log(e.target)
-	const imgLMask = document.querySelector(".portfolio__image--l")
-	const imgSMask = document.querySelector(".portfolio__image--s")
-	const imgInsideL = document.querySelector(".portfolio__image--l .image_inside")
-	const imgInsideS = document.querySelector(".portfolio__image--s .image_inside")
-	const imageWrapper = document.querySelector(".image-wrapper")
+function createPortfolioHover(e) {
 	const activeLink = e.target
-	const activeLinkPos = activeLink.offsetTop
-	// const activeImgL = activeLink.attributes[2].value
-	const activeImgS = activeLink.dataset.imagesmall
-	const activeImgL = activeLink.dataset.imagelarge
-
-	console.log({activeLink})
-	// console.log({activeImgL});
-	// console.log({activeImgS});
+	const allSiblings = allLinks.filter(item => item !== activeLink)
+	const { color, imagelarge, imagesmall} = e.target.dataset
 
 	if(e.type === "mouseenter") {
-		const tl = gsap.timeline({defaults: {duration: 0.7, ease: "power3.out"}})
+		const tl = gsap.timeline()
 
 		tl
-			.to(links, {color: "#fff", opacity: 0.2})
-			.to(activeLink, {color: "#fff", opacity: 1}, 0)
-			.to(imageWrapper, {y: -activeLinkPos})
-			.to(imgInsideL, {autoAlpha: 1, backgroundImage: `url(${activeImgL})`},0)
-			.to(imgInsideS, {autoAlpha: 1, backgroundImage: `url(${activeImgS})`},0)
-			.to(imgLMask, {autoAlpha: 1, opacity: 1}, 0)
-			.to(imgSMask, {autoAlpha: 1, opacity: 1}, 0)
-	// changing the backgrounimage/ make images visible (autoalpha?)
-	// change background color
+			.set(sInside, {backgroundImage: `url(${imagesmall})`})
+			.set(lInside,{backgroundImage: `url(${imagelarge})`})
+			.to([smallImage, largeImage], {autoAlpha: 1},0)
+			.to(allSiblings, {color: "#fff", autoAlpha: 0.2},0)
+			.to(activeLink, {color: "#fff", autoAlpha: 1}, 0)
+			.to(pageBackground, {backgroundColor: `${color}`})
 
 	} else if (e.type === "mouseleave") {
-		const tl = gsap.timeline({defaults: {duration: 1, ease: "power3.out"}})
-		
-	//fade font color back to default
-	//fade background color back two default
+		const tl = gsap.timeline()
+		tl
+			.to([smallImage, largeImage], {autoAlpha: 0},0)
+			.to(pageBackground, {backgroundColor: "#ACB7AE"},0)
+			.to(allLinks, {color: "#000", autoAlpha: 1},0)
+	
 	}
 }
 
@@ -57,7 +49,7 @@ function hoverEffekt(e) {
 
 
 function init(){
-    initLinkHover()
+	initPortfolioHover()
 }
 
 window.addEventListener('load', function(){
