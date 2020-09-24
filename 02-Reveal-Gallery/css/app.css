@@ -67,7 +67,7 @@ body {
     min-height: 50vh;
 }
 .rg__text--heading h3 {
-    font-size: 3.6vw;
+    font-size: clamp(2rem, 3.6vw, 4rem);
     line-height: 1.192307692;
 }
 .rg__text--heading span {

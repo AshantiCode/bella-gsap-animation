@@ -54,10 +54,30 @@ function createHoverReveal(e) {
     return tl;
 }
 
-function init() {
-    initHoverReveal();
-}
+// function init() {
+//     initHoverReveal();
+// }
 
-window.addEventListener("load", function () {
-    init();
-});
+// window.addEventListener("load", function () {
+//     init();
+// });
+
+// ******  Media Queries  *********************************************
+// ********************************************************************
+
+//define a breakpoint, over 768px animation should play, under, not.
+const mq = window.matchMedia("(min-width: 768px)")
+
+// add change listener
+mq.addEventListener("change", handleWidthChange)
+
+//function media quer change
+function handleWidthChange(mq) {
+	console.log(mq);
+	//check if we over 768px or under 768px
+	if(mq.matches) {
+		initHoverReveal()
+	} else {
+		console.log("we are on mobile")
+	}
+}
