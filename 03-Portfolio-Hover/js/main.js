@@ -14,10 +14,16 @@ function initLinkHover() {
 
 function hoverEffekt(e) {
 	// console.log(e.target)
-	const imgL = document.querySelector(".portfolio__image--l")
-	const imgS = document.querySelector(".portfolio__image--s")
-	const categories = document.querySelector(".portfolio__categories")
+	const imgLMask = document.querySelector(".portfolio__image--l")
+	const imgSMask = document.querySelector(".portfolio__image--s")
+	const imgInsideL = document.querySelector(".portfolio__image--l .image_inside")
+	const imgInsideS = document.querySelector(".portfolio__image--s .image_inside")
 	const activeLink = e.target
+	const activeImgL = activeLink.attributes[2].value
+	const activeImgS = activeLink.dataset.imagesmall
+
+	console.log({activeLink})
+	console.log({activeImgL});
 
 	if(e.type === "mouseenter") {
 		const tl = gsap.timeline({defaults: {duration: 1, ease: "power3.out"}})
@@ -25,8 +31,8 @@ function hoverEffekt(e) {
 		tl
 			.to(links, {color: "#fff", opacity: 0.2})
 			.to(activeLink, {color: "#fff", opacity: 1}, 0)
-		//change font color to pure white
-	//all the others 0.2 opacite
+			.to(imgLMask, {autoAlpha: 1}, 0)
+			.to(imgInsideL, {autoAlpha: 1, backgroundImage: activeImgL },0)
 	// changing the backgrounimage/ make images visible (autoalpha?)
 	// change background color
 
