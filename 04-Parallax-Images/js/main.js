@@ -47,9 +47,10 @@ function initPinSteps() {
 	// update body color function , the GSAP Way, but this
 	// time we make it with CSS Variables
 	function updateBodyColor(color) {
-		gsap.to(".fill-background", {
-			backgroundColor: color
-		})
+
+		// gsap.to(".fill-background", {backgroundColor: color})   //gsap way
+		document.documentElement.style.setProperty("--bcg-fill-color", color)
+
 	}
 
 	gsap.utils.toArray(".stage").forEach((stage, index) => {
@@ -64,7 +65,8 @@ function initPinSteps() {
 				targets: navLinks[index],
 				className: "is-active"
 			},
-			onEnter: ()=> updateBodyColor(color)
+			onEnter: ()=> updateBodyColor(color),
+			onEnterBack: ()=> updateBodyColor(color)
 		})
 	})
 }

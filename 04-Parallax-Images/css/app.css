@@ -12,6 +12,9 @@
 
     --bcg-loaderblue: #758a94;
     --bcg-loaderbluedark: #566c76;
+    /* the CSS way to change background color */
+    --bcg-fill-color: var(--bcg-green);
+    /* the CSS way to change background color */
 
     --loader-width: 27.36vw;
     --loader-height: 50vh;
@@ -260,6 +263,11 @@ section {
     width: 100%;
     height: 100%;
     position: fixed;
+    /* the css way to change background (but still a js function) */
+    will-change: background-color;
+    background-color: var(--bcg-fill-color);
+    transition: background-color 0.3s linear;
+    /* the css way to change background (but still a js function) */
 }
 
 /* ==========================================================================
