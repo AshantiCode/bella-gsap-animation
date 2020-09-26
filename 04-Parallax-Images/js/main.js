@@ -26,8 +26,7 @@ function initImageParallax() {
 				scrub: true
 			}
 		})
-		
-	})
+	}) //end with parallax
 } //end init Parallax
 
 function initPinSteps() {
@@ -37,7 +36,36 @@ function initPinSteps() {
 		endTrigger: ".stage4",
 		end: "center center",
 		pin: true,
-		markers: true
+	})
+
+	// get viewport height
+	const getVh = () => {
+		const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+		return vh;
+	}
+
+	// update body color function , the GSAP Way, but this
+	// time we make it with CSS Variables
+	function updateBodyColor(color) {
+		gsap.to(".fill-background", {
+			backgroundColor: color
+		})
+	}
+
+	gsap.utils.toArray(".stage").forEach((stage, index) => {
+		const navLinks = gsap.utils.toArray(".fixed-nav li")
+		const color = stage.dataset.color
+
+		ScrollTrigger.create({
+			trigger: stage,
+			start: "top center",
+			end: () =>`+=${stage.clientHeight+ getVh()/10}`,
+			toggleClass: {
+				targets: navLinks[index],
+				className: "is-active"
+			},
+			onEnter: ()=> updateBodyColor(color)
+		})
 	})
 }
 
