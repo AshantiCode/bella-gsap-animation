@@ -9,35 +9,41 @@ function initImageParallax() {
 		//get the image from each section
 		const blogPost=  document.querySelector(".blog__image")
 		const image =  section.querySelector("img")
-		console.log(image);
+		const {color} = section.dataset
+		console.log(color);
 
 		//create tween for the image
-		gsap.to(image, {
-			yPercent: 20,
+
+		const tl =  gsap.timeline() 
+		tl
+		.to(image, {
+			yPercent: 25,
 			ease: "none",
 			scrollTrigger: {
 				trigger: section,
 				start: "top center+=20%",
-				end: "bottom top+=100",
-				markers: true,
+				end: "bottom top",
 				scrub: true
 			}
 		})
+		
 	})
+} //end init Parallax
 
-	
-	
+function initPinSteps() {
+	ScrollTrigger.create({
+		trigger: ".fixed-nav",
+		start: "top center",
+		endTrigger: ".stage4",
+		end: "center center",
+		pin: true,
+		markers: true
+	})
 }
-
 
 function init(){
 	initImageParallax()
-	//select all the sections with the right class
-	// get image inside of it
-	// tween for each images
-	
-    // start here
-
+	initPinSteps()
 }
 
 window.addEventListener('load', function(){
