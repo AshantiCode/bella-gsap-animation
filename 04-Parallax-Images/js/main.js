@@ -7,16 +7,10 @@ function initImageParallax() {
 
 	withParallax.forEach(section => {
 		//get the image from each section
-		const blogPost=  document.querySelector(".blog__image")
 		const image =  section.querySelector("img")
-		const {color} = section.dataset
-		console.log(color);
 
-		//create tween for the image
-
-		const tl =  gsap.timeline() 
-		tl
-		.to(image, {
+		//create tween for the image parallax effeckt
+		gsap.to(image, {
 			yPercent: 25,
 			ease: "none",
 			scrollTrigger: {
@@ -47,24 +41,27 @@ function initPinSteps() {
 	// update body color function , the GSAP Way, but this
 	// time we make it with CSS Variables
 	function updateBodyColor(color) {
-
 		// gsap.to(".fill-background", {backgroundColor: color})   //gsap way
 		document.documentElement.style.setProperty("--bcg-fill-color", color)
 
 	}
 
-	gsap.utils.toArray(".stage").forEach((stage, index) => {
+	// get the stages and links for setting the active classes
+	const stages = gsap.utils.toArray(".stage")
+	stages.forEach((stage, index) => {
 		const navLinks = gsap.utils.toArray(".fixed-nav li")
 		const color = stage.dataset.color
 
+	//add is-active class when section scrolls into view + bodycolor
 		ScrollTrigger.create({
 			trigger: stage,
 			start: "top center",
-			end: () =>`+=${stage.clientHeight+ getVh()/10}`,
+			end: () =>`+=${stage.clientHeight}`,
 			toggleClass: {
 				targets: navLinks[index],
 				className: "is-active"
 			},
+			markers: true,
 			onEnter: ()=> updateBodyColor(color),
 			onEnterBack: ()=> updateBodyColor(color)
 		})
