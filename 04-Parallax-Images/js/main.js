@@ -42,8 +42,10 @@ function initPinSteps() {
 	// time we make it with CSS Variables
 	function updateBodyColor(color) {
 		// gsap.to(".fill-background", {backgroundColor: color})   //gsap way
-		document.documentElement.style.setProperty("--bcg-fill-color", color)
-
+		document.documentElement.style.setProperty("--bcg-fill-color", color, )
+	}
+	function  resetToDefaultColor(defColor) {
+		document.documentElement.style.setProperty("--bcg-fill-color", defColor, )
 	}
 
 	// get the stages and links for setting the active classes
@@ -63,7 +65,8 @@ function initPinSteps() {
 			},
 			markers: true,
 			onEnter: ()=> updateBodyColor(color),
-			onEnterBack: ()=> updateBodyColor(color)
+			onEnterBack: ()=> updateBodyColor(color),
+			onLeaveBack: ()=> resetToDefaultColor("#acb7ae")
 		})
 	})
 }
