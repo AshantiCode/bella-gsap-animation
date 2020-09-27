@@ -55,7 +55,6 @@ function initPinSteps() {
 	stages.forEach((stage, index) => {
 		const navLinks = gsap.utils.toArray(".fixed-nav li")
 		const color = stage.dataset.color
-		console.log("running here");
 		//add is-active class when section scrolls into view + bodycolor
 		ScrollTrigger.create({
 			trigger: stage,
@@ -65,7 +64,6 @@ function initPinSteps() {
 				targets: navLinks[index],
 				className: "is-active",
 			},
-			markers: true,
 			onEnter: ()=> updateBodyColor(color),
 			onEnterBack: ()=> updateBodyColor(color),
 			onLeaveBack: ()=> resetBodyColor("#acb7ae")
@@ -74,8 +72,20 @@ function initPinSteps() {
 }
 
 function initScrollTo() {
-
-
+	
+	const links = gsap.utils.toArray("li a")
+	links.forEach(link => {
+		const target =  link.getAttribute("href")
+		
+		link.addEventListener("click", (e) => {
+			e.preventDefault()
+			gsap.to(window, {
+				duration: 1.5,
+				scrollTo: target,
+				ease: "power2.out"
+			})
+		})
+	})
 }
 
 function init(){
