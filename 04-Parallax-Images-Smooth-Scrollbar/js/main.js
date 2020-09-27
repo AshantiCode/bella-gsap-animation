@@ -10,7 +10,7 @@ function initImageParallax() {
 
         // create tween for the image
         gsap.to(image, {
-            yPercent: 20,
+            yPercent: 25,
             ease: 'none',
             scrollTrigger: {
                 trigger: section,
@@ -79,8 +79,31 @@ function initScrollTo(){
 
 }
 
+function initSmoothScrollbar() {
+	
+	let bodyScrollBar = Scrollbar.init(document.querySelector('#viewport'));
+
+	// removes horizontal scrollbar element from dom
+	bodyScrollBar.track.xAxis.element.remove()
+
+	// keep ScrollTrigger in sync with Smooth Scrollbar
+	ScrollTrigger.scrollerProxy(document.body, {
+		scrollTop(value) {
+		  if (arguments.length) {
+			bodyScrollBar.scrollTop = value; // setter
+		  }
+		  return bodyScrollBar.scrollTop;    // getter
+		},
+	  });
+	  
+	  // when the smooth scroller updates, tell ScrollTrigger to update() too: 
+	  bodyScrollBar.addListener(ScrollTrigger.update);
+  
+}
+
 function init(){
-    
+	console.log("running");
+	initSmoothScrollbar();
     initImageParallax();
     initPinSteps();
     initScrollTo();
