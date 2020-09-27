@@ -27,7 +27,7 @@ function initPinSteps() {
 	ScrollTrigger.create({
 		trigger: ".fixed-nav",
 		start: "top center",
-		endTrigger: ".stage4",
+		endTrigger: "#stage4",
 		end: "center center",
 		pin: true,
 	})
