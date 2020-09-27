@@ -44,7 +44,9 @@ function initPinSteps() {
 		// gsap.to(".fill-background", {backgroundColor: color})   //gsap way
 		document.documentElement.style.setProperty("--bcg-fill-color", color, )
 	}
-	function  resetToDefaultColor(defColor) {
+
+	// reset to default bodycolor on scrool back up
+	function  resetBodyColor(defColor) {
 		document.documentElement.style.setProperty("--bcg-fill-color", defColor, )
 	}
 
@@ -58,7 +60,7 @@ function initPinSteps() {
 		ScrollTrigger.create({
 			trigger: stage,
 			start: "top center",
-			end: () =>`+=${stage.clientHeight}`,
+			end: () =>`+=${stage.clientHeight + getVh/10}`,
 			toggleClass: {
 				targets: navLinks[index],
 				className: "is-active"
@@ -66,7 +68,7 @@ function initPinSteps() {
 			markers: true,
 			onEnter: ()=> updateBodyColor(color),
 			onEnterBack: ()=> updateBodyColor(color),
-			onLeaveBack: ()=> resetToDefaultColor("#acb7ae")
+			onLeaveBack: ()=> resetBodyColor("#acb7ae")
 		})
 	})
 }
