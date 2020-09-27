@@ -1,5 +1,7 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+let bodyScrollBar
+
 function initImageParallax() {
     
     // select all sections .with-parallax
@@ -30,7 +32,8 @@ function initPinSteps() {
         start: 'top center',
         endTrigger: '#stage4',
         end: 'center center',
-        pin: true
+		pin: true,
+		pinReparent: true,
     });
 
     const getVh = () => {
@@ -71,8 +74,8 @@ function initScrollTo(){
         const target = link.getAttribute('href');
 
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            gsap.to(window, {duration: 1.5, scrollTo: target, ease: 'Power2.out'});
+			e.preventDefault();
+			bodyScrollBar.scrollIntoView(document.querySelector(target), {damping: 0.09})
         });
 
     });
@@ -81,7 +84,7 @@ function initScrollTo(){
 
 function initSmoothScrollbar() {
 	
-	let bodyScrollBar = Scrollbar.init(document.querySelector('#viewport'));
+	bodyScrollBar = Scrollbar.init(document.querySelector('#viewport'), {damping: 0.09});
 
 	// removes horizontal scrollbar element from dom
 	bodyScrollBar.track.xAxis.element.remove()
@@ -102,7 +105,6 @@ function initSmoothScrollbar() {
 }
 
 function init(){
-	console.log("running");
 	initSmoothScrollbar();
     initImageParallax();
     initPinSteps();
