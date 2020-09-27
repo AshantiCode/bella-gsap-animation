@@ -75,7 +75,7 @@ function initScrollTo(){
 
         link.addEventListener('click', (e) => {
 			e.preventDefault();
-			bodyScrollBar.scrollIntoView(document.querySelector(target), {damping: 0.09})
+			bodyScrollBar.scrollIntoView(document.querySelector(target), {damping: 0.09,offsetTop: 200 })
         });
 
     });
