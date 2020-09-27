@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 
 function initImageParallax() {
@@ -10,7 +10,7 @@ function initImageParallax() {
 		const image =  section.querySelector("img")
 
 		//create tween for the image parallax effeckt
-		gsap.to(image, {
+		gsap.to(image, { 
 			yPercent: 25,
 			ease: "none",
 			scrollTrigger: {
@@ -24,6 +24,7 @@ function initImageParallax() {
 } //end init Parallax
 
 function initPinSteps() {
+	// Pin left navigation
 	ScrollTrigger.create({
 		trigger: ".fixed-nav",
 		start: "top center",
@@ -38,14 +39,13 @@ function initPinSteps() {
 		return vh;
 	}
 
-	// update body color function , the GSAP Way, but this
-	// time we make it with CSS Variables
+	// update body color function , gsap && CSS way
 	function updateBodyColor(color) {
 		// gsap.to(".fill-background", {backgroundColor: color})   //gsap way
 		document.documentElement.style.setProperty("--bcg-fill-color", color, )
 	}
 
-	// reset to default bodycolor on scrool back up
+	// reset to default bodycolor on scrool back up to first element
 	function  resetBodyColor(defColor) {
 		document.documentElement.style.setProperty("--bcg-fill-color", defColor, )
 	}
@@ -55,15 +55,15 @@ function initPinSteps() {
 	stages.forEach((stage, index) => {
 		const navLinks = gsap.utils.toArray(".fixed-nav li")
 		const color = stage.dataset.color
-
-	//add is-active class when section scrolls into view + bodycolor
+		console.log("running here");
+		//add is-active class when section scrolls into view + bodycolor
 		ScrollTrigger.create({
 			trigger: stage,
 			start: "top center",
-			end: () =>`+=${stage.clientHeight + getVh/10}`,
+			end: () =>`+=${stage.clientHeight+ getVh() / 10}`,
 			toggleClass: {
 				targets: navLinks[index],
-				className: "is-active"
+				className: "is-active",
 			},
 			markers: true,
 			onEnter: ()=> updateBodyColor(color),
@@ -73,9 +73,15 @@ function initPinSteps() {
 	})
 }
 
+function initScrollTo() {
+
+
+}
+
 function init(){
 	initImageParallax()
 	initPinSteps()
+	initScrollTo()
 }
 
 window.addEventListener('load', function(){
