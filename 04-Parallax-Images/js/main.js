@@ -3,7 +3,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function initImageParallax() {
 	//get all the sections with parallax img
-	const withParallax = gsap.utils.toArray("#with-parallax")
+	const withParallax = gsap.utils.toArray(".with-parallax")
 
 	withParallax.forEach(section => {
 		//get the image from each section
