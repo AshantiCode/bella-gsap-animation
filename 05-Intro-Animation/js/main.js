@@ -32,6 +32,7 @@ function initLoader() {
 
 	// Loader In Tween
 	tlLoaderIn
+		.to([loader, loaderContent], {autoAlpha: 1})
 		.from(loaderInner, {
 			scaleY:0,
 			transformOrigin: "bottom"
@@ -45,9 +46,9 @@ function initLoader() {
 	// Loader Out Tween
 	tlLoaderOut
 		.to(lines, {yPercent: -100, stagger: 0.2}, 0)
-		.to([loader, loaderContent], {yPercent: -100,}, 0.2)
+		.to([loader, loaderContent], {yPercent: -100}, 0.2)
 		.from("#main", {y: 150, ease: "power3.out"}, 0.2)
-		
+
 
 	//Mastertimeline
 	tlLoaderMaster = gsap.timeline()

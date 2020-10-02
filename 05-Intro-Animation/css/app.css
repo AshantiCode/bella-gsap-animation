@@ -308,6 +308,7 @@ header h1 span {
     left: 0;
     width: 100%;
     overflow: hidden;
+    visibility: hidden;
 }
 .loader__mask {
     position: absolute;
@@ -371,6 +372,11 @@ header h1 span {
 }
 .loader__title--mask span {
     display: block;
+}
+.loader__title--mask {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 .loader__image--mask {
     overflow: hidden;
