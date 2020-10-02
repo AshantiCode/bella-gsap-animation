@@ -3,15 +3,28 @@ gsap.registerPlugin(ScrollTrigger);
 const select = (el) => document.querySelector(el)
 const selectAll = (el) => document.querySelectorAll(el)
 
+const loader = select(".loader")
+const loaderInner = select(".loader .inner")
+const progressBar = select(".loader .progress")
+
+// show loader on page load
+gsap.set(loader, {autoAlpha: 1})
+
+// scale loader down to create a progress bar PROGRESS CONTAINER
+gsap.set(loaderInner, {scaleY: 0.005, transformOrigin: "bottom"})
+
+// tween that shows the progress of loading images MOVING PROGRESS BAR
+gsap.to(progressBar, {duration: 3, delay: 2, scaleX: 0, ease:"none", transformOrigin: "right"})
+
+
+
 function initLoader() {
-	
-	const loaderInner = select(".loader .inner")
 	const image = select(".loader__image img")
 	const mask = select(".loader__image--mask")
 	const line1 = select(".loader__title--mask:nth-child(1) span")
 	const line2 = select(".loader__title--mask:nth-child(2) span")
 	const lines = selectAll(".loader__title--mask")
-	const loader = select(".loader")
+	
 	const loaderContent = select(".loader__content")
 	// Loader In Timeline
 	const tlLoaderIn = gsap.timeline({
@@ -58,12 +71,12 @@ function initLoader() {
 		
 }
 
-function init(){
+// function init(){
     
-    initLoader()
+//     initLoader()
 
-}
+// }
 
-window.addEventListener('load', function(){
-    init();
-});
+// window.addEventListener('load', function(){
+//     init();
+// });
