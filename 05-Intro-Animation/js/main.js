@@ -21,7 +21,7 @@ const progressTween = gsap.to(progressBar, {scaleX: 0, ease:"none", transformOri
 let loadedImageCount = 0, imageCount;
 const container = select('#main');
  
-// setup Images loaded
+// setup Images loaded from Plugin in Script
 const imgLoad = imagesLoaded( container );
 imageCount = imgLoad.images.length;
  
@@ -80,9 +80,10 @@ function initLoader() {
 	// Loader In Tween
 	tlLoaderIn
 		.set([loader, loaderContent], {autoAlpha: 1})
-		.from(loaderInner, {
-			scaleY:0,
-			transformOrigin: "bottom"
+		.to(loaderInner, {
+			scaleY:1,
+			transformOrigin: "bottom",
+			ease: "power1.inOut"
 		}, 0.3)
 		.addLabel("revealImage")
 		.from(mask, {yPercent: 100}, "revealImage-=0.6")
