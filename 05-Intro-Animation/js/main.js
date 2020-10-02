@@ -32,7 +32,7 @@ function initLoader() {
 
 	// Loader In Tween
 	tlLoaderIn
-		.to([loader, loaderContent], {autoAlpha: 1})
+		.set([loader, loaderContent], {autoAlpha: 1})
 		.from(loaderInner, {
 			scaleY:0,
 			transformOrigin: "bottom"
