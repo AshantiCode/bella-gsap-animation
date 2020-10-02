@@ -26,6 +26,8 @@ function initLoader() {
 		.addLabel("revealImage")
 		.from(mask, {yPercent: 100}, "revealImage-=0.6")
 		.from(image, {yPercent: -50}, "revealImage-=0.6")
+		.from([line1, line2], {yPercent: 100, stagger: 0.3})
+		
 }
 
 function init(){
