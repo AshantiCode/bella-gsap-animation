@@ -14,7 +14,41 @@ gsap.set(loader, {autoAlpha: 1})
 gsap.set(loaderInner, {scaleY: 0.005, transformOrigin: "bottom"})
 
 // tween that shows the progress of loading images MOVING PROGRESS BAR
-gsap.to(progressBar, {duration: 3, delay: 2, scaleX: 0, ease:"none", transformOrigin: "right"})
+const progressTween = gsap.to(progressBar, {scaleX: 0, ease:"none", transformOrigin: "right"})
+
+// setup variables
+// https://codepen.io/desandro/pen/hlzaw
+let loadedImageCount = 0, imageCount;
+const container = select('#main');
+ 
+// setup Images loaded
+const imgLoad = imagesLoaded( container );
+imageCount = imgLoad.images.length;
+ 
+// set the initial progress to 0
+updateProgress(0);
+ 
+// triggered after each item is loaded
+imgLoad.on( 'progress', function() {
+    // increase the number of loaded images
+    loadedImageCount++;
+    // update progress
+    updateProgress( loadedImageCount );
+});
+ 
+// update the progress of our progressBar tween
+function updateProgress( value ) {
+    // console.log(value/imageCount)
+    // tween progress bar tween to the right value
+    gsap.to(progressTween, {progress: value/imageCount, duration: 0.3, ease: 'power1.out'})
+}
+ 
+// do whatever you want when all images are loaded
+imgLoad.on( 'done', function( instance ) {
+    // we will simply init our loader animation onComplete
+    gsap.set(progressBar, {autoAlpha: 0, onComplete: initLoader});
+});
+
 
 
 
