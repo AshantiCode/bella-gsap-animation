@@ -50,39 +50,44 @@ imgLoad.on( 'done', function( instance ) {
     gsap.set(progressBar, {autoAlpha: 0, onComplete: initPageTransitions});
 });
 
+
+// Page Transition IN
 function pageTransitionIn() {
 	console.log("First IN");
+	console.log(loaderLogo);
 	// timeline to put the loader over whole screen
 	const tl =  gsap.timeline({
 		defaults: {
-			duration: 1.3,
+			duration:0.7,
 			ease: "power1.inOut"
 		}
 	})
 	tl
 		.set(loaderInner, {autoAlpha: 0})
-		.fromTo(loader, {yPercent: -100,}, {yPercent: 0},0)
-		// .fromTo(loaderLogo, { yPercent: 100}, {yPercent: 0},0)
+		.fromTo(loader, {yPercent: -100,}, {yPercent: 0})
+		.fromTo(loaderLogo, {yPercent: 80}, {yPercent: 0},0)
 	return tl
 }
 
+// Page  Transition Out
 function pageTransitionOut() {
 	console.log("Second OUT");
 	// timeline to move the loader away down
 	const tl =  gsap.timeline({
 		defaults: {
-			duration: 1.3,
+			duration: 0.7,
 			ease: "power1.inOut"
 		}
 	})
 	tl
-		.to(loader, { yPercent: 100,})
-		// .to(loaderLogo, { yPercent: -100},0)
+		.to(loader, {yPercent: 100,})
+		.to(loaderLogo, {yPercent: -80})
 	
 	return tl
 	
 }
 
+// Init Barba  Page Transition 
 function initPageTransitions() {
 	barba.init({
 		transitions: [{
