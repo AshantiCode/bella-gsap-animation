@@ -5,6 +5,7 @@ const selectAll = (el) => document.querySelectorAll(el)
 
 const loader = select(".loader")
 const loaderInner = select(".loader .inner")
+const loaderLogo =  select(".loader__mask")
 const progressBar = select(".loader .progress")
 
 // show loader on page load
@@ -50,13 +51,36 @@ imgLoad.on( 'done', function( instance ) {
 });
 
 function pageTransitionIn() {
-	console.log("pageTranstition IN");
-	return gsap.to(".transition", {duration: 1, yPercent: -100, ease: "power1.inOut"})
+	console.log("First IN");
+	// timeline to put the loader over whole screen
+	const tl =  gsap.timeline({
+		defaults: {
+			duration: 1.3,
+			ease: "power1.inOut"
+		}
+	})
+	tl
+		.set(loaderInner, {autoAlpha: 0})
+		.fromTo(loader, {yPercent: -100,}, {yPercent: 0},0)
+		// .fromTo(loaderLogo, { yPercent: 100}, {yPercent: 0},0)
+	return tl
 }
 
 function pageTransitionOut() {
-	console.log("pageTranstition OUT");
-	return gsap.to(".transition", {duration: 1, yPercent: 100, ease: "power1.inOut"})
+	console.log("Second OUT");
+	// timeline to move the loader away down
+	const tl =  gsap.timeline({
+		defaults: {
+			duration: 1.3,
+			ease: "power1.inOut"
+		}
+	})
+	tl
+		.to(loader, { yPercent: 100,})
+		// .to(loaderLogo, { yPercent: -100},0)
+	
+	return tl
+	
 }
 
 function initPageTransitions() {
@@ -68,6 +92,10 @@ function initPageTransitions() {
 			},
 			async leave() {
 				//animate loading screen in
+				// weil erst wenn die transition IN komplett ist, der neue
+				// content aufgezogen wird und dann die enter animation gespielt
+				// wird. sonst hatte ich schon beim runtergehen des loaders die 
+				// neue seite gesehen
 				await pageTransitionIn()
 			},
 			enter() {

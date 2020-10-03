@@ -27,16 +27,6 @@ body {
     color: var(--text-dark-color);
 }
 
-.transition {
-    position: fixed;
-    bottom: 0;
-    left: 250px;
-    background-color: #ebebeb;
-    padding: 20px;
-    z-index: 5;
-    transform: translateY(100%);
-}
-
 /* hide page content by default */
 .is-loading #main,
 .is-loading .logo,
