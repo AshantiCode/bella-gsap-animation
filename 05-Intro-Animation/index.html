@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet" />
     </head>
 
-    <body class="is-loading">
+    <body class="is-loading" data-barber="wrapper">
         <div class="loader">
             <div class="loader__mask">
                 <div class="inner">
@@ -58,7 +58,7 @@
             </ul>
         </nav>
 
-        <main id="main">
+        <main id="main" data-barber="container">
             <header data-color="#ACB7AE">
                 <h1>
                     <span>Consectetur</span>
@@ -97,6 +97,8 @@
             </header>
         </main>
         <!-- #main-container -->
+
+        <div class="transition">TRANSITION</div>
 
         <!-- fill background between sections with margin - eg. portfolio  -->
         <aside class="fill-background" style="background-color: #acb7ae"></aside>
