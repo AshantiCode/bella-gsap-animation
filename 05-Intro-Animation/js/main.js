@@ -46,11 +46,37 @@ function updateProgress( value ) {
 // do whatever you want when all images are loaded
 imgLoad.on( 'done', function( instance ) {
     // we will simply init our loader animation onComplete
-    gsap.set(progressBar, {autoAlpha: 0, onComplete: initLoader});
+    gsap.set(progressBar, {autoAlpha: 0, onComplete: initPageTransitions});
 });
 
+function pageTransitionIn() {
+	console.log("pageTranstition IN");
+	return gsap.to(".transition", {duration: 1, yPercent: -100, ease: "power1.inOut"})
+}
 
+function pageTransitionOut() {
+	console.log("pageTranstition OUT");
+	return gsap.to(".transition", {duration: 1, yPercent: 100, ease: "power1.inOut"})
+}
 
+function initPageTransitions() {
+	barba.init({
+		transitions: [{
+			once() {
+				//do something once
+				initLoader()
+			},
+			async leave() {
+				//animate loading screen in
+				await pageTransitionIn()
+			},
+			enter() {
+				// animate loading screen away
+				pageTransitionOut()
+			}
+		}]
+	})
+}
 
 function initLoader() {
 	const image = select(".loader__image img")
@@ -106,6 +132,9 @@ function initLoader() {
 		
 }
 
+
+//brauchen wir nicht mehr, wir innerhalb der imgLoad.on function nach 
+//completion der ganzen geladenen bilder gemacht.
 // function init(){
     
 //     initLoader()
